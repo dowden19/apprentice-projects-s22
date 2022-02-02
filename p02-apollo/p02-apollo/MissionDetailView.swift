@@ -12,7 +12,31 @@ struct MissionDetailView: View {
     let mission: Mission
     
     var body: some View {
-        Text("Hello, World!")
+        ScrollView {
+            VStack {
+                Image(mission.imageName)
+                    .resizable()
+                    .frame(width: 300.0, height: 300.0)
+                Text(mission.formattedLaunchDate)
+                    .padding()
+                Text(mission.description)
+                    .padding()
+                    .fixedSize(horizontal: false, vertical: true)
+                VStack(alignment: .leading) {
+                    ForEach(mission.crew) { member in
+                        HStack {
+                            Image(member.imageName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 100)
+                            Text(member.name)
+                        }
+                    }
+                }
+            }
+            .navigationTitle(mission.displayName)
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
