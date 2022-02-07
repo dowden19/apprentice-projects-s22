@@ -15,12 +15,41 @@ struct ProfileView: View {
     let userPosts: [Post] = PostList.defaultPosts
 
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            ScrollView {
+                HStack {
+                    Image(profileImageAddress)
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                    VStack(alignment: .leading) {
+                        Text(name)
+                        Text("@"+username)
+                            .font(.subheadline)
+                            .foregroundColor(Color.gray)
+                    }
+                    Spacer()
+                    NavigationLink(destination: ProfileSettings()) {
+                        Image(systemName: "gearshape")
+                            .resizable()
+                            .foregroundColor(Color.gray)
+                            .frame(width:30,height:30)
+                    }
+                }.padding()
+                Divider()
+                ForEach(userPosts) { post in
+                    PostView(post: post)
+                    Divider()
+                }
+            }
+            .navigationBarHidden(true)
+        }
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+            .bothColorSchemes()
     }
 }
