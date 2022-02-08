@@ -54,7 +54,7 @@ struct PostView: View {
                 }
                 .padding(7)
                 HStack (spacing: 4) {
-                    NavigationLink(destination: CommentView()) {
+                    NavigationLink(destination: CommentView(parentPost: post)) {
                         Image(systemName: "bubble.left")
                             .resizable()
                             .foregroundColor(Color.gray)

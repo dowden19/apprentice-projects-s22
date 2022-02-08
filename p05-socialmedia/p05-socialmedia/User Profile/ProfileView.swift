@@ -17,32 +17,17 @@ struct ProfileView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                HStack {
-                    Image(profileImageAddress)
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-                    VStack(alignment: .leading) {
-                        Text(name)
-                        Text("@"+username)
-                            .font(.subheadline)
-                            .foregroundColor(Color.gray)
+                LazyVStack(pinnedViews: .sectionHeaders) {
+                    Section(header: ProfileHeaderView()) {
+                        ForEach(userPosts) { post in
+                            PostView(post: post)
+                            Divider()
+                        }
                     }
-                    Spacer()
-                    NavigationLink(destination: ProfileSettings()) {
-                        Image(systemName: "gearshape")
-                            .resizable()
-                            .foregroundColor(Color.gray)
-                            .frame(width:30,height:30)
-                    }
-                }.padding()
-                Divider()
-                ForEach(userPosts) { post in
-                    PostView(post: post)
-                    Divider()
                 }
             }
             .navigationBarHidden(true)
+            .edgesIgnoringSafeArea(.top)
         }
     }
 }
