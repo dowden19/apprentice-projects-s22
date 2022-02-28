@@ -13,7 +13,7 @@ struct NewPostView: View {
     let username: String = "appteamcarolina"
     let profileImageAddress: String = "appteam"
     
-    @State var content = ""
+    @StateObject var vm = NewPostViewModel()
     
     var body: some View {
         ScrollView {
@@ -31,19 +31,23 @@ struct NewPostView: View {
                     }
                     Spacer()
                     Button {
-                        // Create new post
+                        vm.makePost()
                     } label: {
                         Text("Post")
-                            .padding(5)
+                            .frame(width:50)
+                            .padding(6)
                             .background(Color.blue)
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                     }
                 }
                 .padding()
-                TextEditor(text: $content)
+                TextEditor(text: $vm.currentPostText)
                     .frame(width:350,height:200,alignment: .top)
-                    .border(Color.gray)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 13)
+                            .stroke(Color(.systemGray6), lineWidth: 2)
+                    )
                 Spacer()
             }
             .navigationBarTitle("", displayMode: .inline)

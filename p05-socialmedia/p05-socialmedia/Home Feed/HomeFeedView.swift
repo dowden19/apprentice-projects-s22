@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeFeedView: View {
     let posts: [Post] = PostList.defaultPosts
     
+    @StateObject var vm = HomeFeedViewModel()
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -25,6 +27,9 @@ struct HomeFeedView: View {
             }
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.top)
+        }
+        .onAppear {
+            vm.fetchPosts()
         }
     }
 }
